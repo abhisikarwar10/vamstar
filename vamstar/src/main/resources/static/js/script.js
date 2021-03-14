@@ -1,6 +1,6 @@
 $(function() {
 
-    var owner = $('#owner');
+    var owner = $('#ownerName');
     var cardNumber = $('#cardNumber');
     var cardNumberField = $('#card-number-field');
     var CVV = $("#cvv");
@@ -55,8 +55,13 @@ $(function() {
         } else if (!isCvvValid) {
             alert("Wrong CVV");
         } else {
-            // Everything is correct. Add your form submission code here.
-            alert("Everything is correct");
+            var cardType = $.payform.parseCardType(cardNumber.val());
+            var data = {cardType: cardType, price : $("#price").val(), currency : $("#currency").val(),clientName : $("#clientName").val(),ownerName : $("#ownerName").val(),cvv : $("#cvv").val(),cardNumber : $("#cardNumber").val(),expiryMonth : $("#expiryMonth").val(),expiryYear : $("#expiryYear").val()};
+            $.ajax({url: "/checkouts",type : "post",data : data,
+                success: function(result){
+                    $("#main-area").html(result);
+                    console.log("sucesss");
+                }});
         }
     });
 });

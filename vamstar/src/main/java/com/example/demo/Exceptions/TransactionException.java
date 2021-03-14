@@ -1,2 +1,7 @@
-package com.example.demo;public class TransactionException {
+package com.example.demo.Exceptions;
+
+public class TransactionException extends Exception{
+    public TransactionException(String message){
+          super(message);
+    }
 }
